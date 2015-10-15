@@ -10,17 +10,23 @@ import org.apache.cordova.CordovaPlugin;
 
 public class SoftKeyboard extends CordovaPlugin {
 
-    public SoftKeyboard() {
+    public SoftKeyboard(DroidGap gap, WebView view)
+    {
+        mAppView = view;
+        mGap = gap;
     }
-
     public void showKeyBoard() {
-        InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        InputMethodManager mgr = (InputMethodManager) mGap.getSystemService(Context.INPUT_METHOD_SERVICE);
+        // only will trigger it if no physical keyboard is open
+        mgr.showSoftInput(mAppView, InputMethodManager.SHOW_IMPLICIT);
+        
+        ((InputMethodManager) mGap.getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(mAppView, 0);
+        
     }
-
+    
     public void hideKeyBoard() {
-        InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(this.cordova.getCurrentFocus().getWindowToken(), 0);
+        InputMethodManager mgr = (InputMethodManager) mGap.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(mAppView.getWindowToken(), 0);
     }
 
     public boolean isKeyBoardShowing() {
