@@ -10,6 +10,9 @@ import org.apache.cordova.CordovaPlugin;
 
 public class SoftKeyboard extends CordovaPlugin {
 
+    private WebView mAppView;
+    private DroidGap mGap;
+    
     public SoftKeyboard(DroidGap gap, WebView view)
     {
         mAppView = view;
