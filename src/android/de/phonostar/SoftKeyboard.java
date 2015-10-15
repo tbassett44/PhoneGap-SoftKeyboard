@@ -14,15 +14,21 @@ public class SoftKeyboard extends CordovaPlugin {
     }
 
     public void showKeyBoard() {
-      InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-      mgr.showSoftInput(webView, InputMethodManager.SHOW_IMPLICIT);
-
-      ((InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(webView, 0);
+        cordova.runOnUiThread(new Runnable() {
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) cordova.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+            }
+        });
     }
 
     public void hideKeyBoard() {
-      InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-      mgr.hideSoftInputFromWindow(webView.getWindowToken(), 0);
+        cordova.runOnUiThread(new Runnable() {
+            public void run() {
+                InputMethodManager inputManager = (InputMethodManager) cordova.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(cordova.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        });
     }
 
     public boolean isKeyBoardShowing() {
