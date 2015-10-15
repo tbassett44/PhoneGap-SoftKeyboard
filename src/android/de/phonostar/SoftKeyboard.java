@@ -20,11 +20,11 @@ public class SoftKeyboard extends CordovaPlugin {
 
     public void hideKeyBoard() {
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(cordova.getCurrentFocus().getWindowToken(), 0);
     }
 
     public boolean isKeyBoardShowing() {
-      int heightDiff = this.cordova.getActivity().getRootView().getHeight() - this.cordova.getActivity().getHeight();
+      int heightDiff = this.cordova.getActivity().getWindow().getDecorView().getRootView().getHeight() - this.cordova.getActivity().getWindow().getDecorView().getHeight();
       return (100 < heightDiff); // if more than 100 pixels, its probably a keyboard...
     }
 
