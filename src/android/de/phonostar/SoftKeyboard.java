@@ -20,7 +20,7 @@ public class SoftKeyboard extends CordovaPlugin {
 
     public void hideKeyBoard() {
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(this.cordova.getCurrentFocus().getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(this.cordova.getActivity().getWindow().getDecorView().getWindowToken(), 0);
     }
 
     public boolean isKeyBoardShowing() {
